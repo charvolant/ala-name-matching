@@ -7,7 +7,7 @@ How an index is generated from a DwCA ... to come.
 
 The index is generated from a number of supplied files. These are either found in `/data/bie-staging/ala-names` or `/data/bie-staging/anbg`.
 
-* known_homonyms.txt (internal) A list of words that are [homonyms](glossary#def-homonym). Not currently used.
+* known_homonyms.txt (internal) A list of words that are [homonyms](glossary.md#def-homonym). Not currently used.
 * blacklist.txt (internal) A list of names that should not be included in the index.
 * ala_accepted_concepts_dump.txt (default in bie-staging)  A list of accepted names
 * ala-extra.txt (default in bie-staging) A list of additional taxa to add to the index, somewhat more limited than the accepted concepts
@@ -15,7 +15,7 @@ The index is generated from a number of supplied files. These are either found i
 * col_common_names.txt (default in bie-staging) A list of collection-supplied common names
 * identifiers.txt (default in bie-staging) A list of lsid onto "real" lsid mappings, so that common names, synonyms etc. can be correctly resolved.
 Note that this needs to be generated as an input file.
-* IRMNG_DWC_HOMONYMS The base directory of a DwCA containing [homonyms](glossary#def-homonym)
+* IRMNG_DWC_HOMONYMS The base directory of a DwCA containing [homonyms](glossary.md#def-homonym)
 * ala-species-homonyms.txt (default in bie-staging) The ALA list of homonyms (species only)
 * AFD-common-names.csv (default in bie-staging) Common names from the AFD
 * APNI-common-names.csv (default in bie-staging) Common names from APNI
@@ -26,9 +26,9 @@ A CSV file with the following columns
 
 1. identfier
 1. parent identifier (not used)
-1. [lsid](glossary#def-lsid)
+1. [lsid](glossary.md#def-lsid)
 1. parent lsid (not used)
-1. [accepted name](glossary#def-accepted-name)
+1. [accepted name](glossary.md#def-accepted-name)
 1. accepted name id
 1. name lsid (not used)
 1. scientific name
@@ -56,7 +56,7 @@ A CSV file with the following columns
 1. species id
 1. species name
 1. source
-1. [excluded](glossary#def-excluded) flag
+1. [excluded](glossary.md#def-excluded) flag
 
 The left and right values do what??
 
@@ -95,7 +95,7 @@ A CSV file with the following columns
 
 ###IRMNG_DWC_HOMONYMS
 
-A [Darwin core archive][DwCA] that contains a list of [homonyms](glossary#def-homonym).
+A [Darwin core archive][DwCA] that contains a list of [homonyms](glossary.md#def-homonym).
 This has a list of names: kingdom, phylum, class, order, family, genus, species, rank, author.
 
 ###ala-species-homonyms.txt
@@ -135,19 +135,19 @@ These fields are (mostly) indexed when the document is added to the lucene index
 Documents of this sort record both synonyms and accepted names:
 
 * id The supplied identifier for the name
-* lsid The [lsid](glossary#def-lsid) for the name
+* lsid The [lsid](glossary.md#def-lsid) for the name
 * ala If T then the lsid is an internal ALA guid
 * name The supplied scientific name. 
 * name The canonical scientific name, if available.
 * name The virus name without the "virus" qualifier, if a virus
 * specific The canonical specific epithet, if available
-* phrase The cleaned up [phrase name](glossary#def-phrase-name) identifier, if available
-* voucher The cleaned up [phrase name](glossary#def-phrase-name) [voucher](glossary#def-voucher), if available
+* phrase The cleaned up [phrase name](glossary.md#def-phrase-name) identifier, if available
+* voucher The cleaned up [phrase name](glossary.md#def-phrase-name) [voucher](glossary.md#def-voucher), if available
 * rank_id The rank identifier
 * rank The rank name
 * is_synonym Whether this is a synonym of another name (T/F)
 * synonym_type The synonym type. (always set to *excludes* if this is an excluded name)
-* accepted If this is a synonym, then this is the id of the [accepted name](glossary#def-accepted-name)
+* accepted If this is a synonym, then this is the id of the [accepted name](glossary.md#def-accepted-name)
 * kingdom The kingdom name
 * kid The kinddom id
 * phylum The phylum name
