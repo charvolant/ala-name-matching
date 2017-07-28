@@ -26,11 +26,13 @@ public class NameListComparer {
     private CSVReader names;
     private CSVWriter output;
     private ALANameSearcher searcher;
+    private String headers;
     private Map<String, Integer> columnMap;
 
-    public NameListComparer(Reader names, Writer output, File index, boolean tabs) throws IOException {
+    public NameListComparer(Reader names, Writer output, File index, boolean tabs, String headers) throws IOException {
         this.names = new CSVReader(names, tabs ? '\t' : ',');
         this.output = new CSVWriter(output);
+        this.headers = headers;
         this.searcher = new ALANameSearcher(index.getAbsolutePath());
     }
 
@@ -47,7 +49,12 @@ public class NameListComparer {
     }
 
     protected void readHeader() throws IOException {
-        String[] header = names.readNext();
+        String[] header;
+        if (this.headers != null) {
+            header = this.headers.split("\\s*,\\s*");
+        } else {
+            header = names.readNext();
+        }
         int i = 0;
 
         this.columnMap = new HashMap<String, Integer>();
@@ -216,10 +223,12 @@ public class NameListComparer {
         Option o = OptionBuilder.withLongOpt("output").withDescription("Output file name - defaults to standard output").hasArg().withArgName("FILE").create('o');
         Option i = OptionBuilder.withLongOpt("index").withDescription("Lucene index directory - defaults to /data/lucene/namematching").hasArg().withArgName("DIR").create('i');
         Option t = OptionBuilder.withLongOpt("tabs").withDescription("Use tab-separated, rather than comma separated values").create();
+        Option h = OptionBuilder.withLongOpt("headers").withDescription("Provide a comma-separated list of headers, instead of headers in the input file").hasArg().withArgName("HEADERS").create();
         options.addOption(n);
         options.addOption(o);
         options.addOption(i);
         options.addOption(t);
+        options.addOption(h);
         CommandLineParser parser = new BasicParser();
         try {
             CommandLine cmd = parser.parse(options, args);
@@ -232,7 +241,8 @@ public class NameListComparer {
             Writer output = of == null || of.equals("-") ? new OutputStreamWriter(System.out) : new FileWriter(of);
             File index = new File(cmd.getOptionValue('i', "/data/lucene/namematching"));
             boolean tabs = cmd.hasOption("tabs");
-            NameListComparer comparer = new NameListComparer(names, output, index, tabs);
+            String headers = cmd.getOptionValue("headers");
+            NameListComparer comparer = new NameListComparer(names, output, index, tabs, headers);
 
             comparer.compare();
             comparer.close();
